@@ -159,4 +159,8 @@ class InvoiceRepository
     private function getInvoiceByDebtId(string $debt_id): Invoice {
         return Invoice::where('debt_id', $debt_id)->first();
     }
+
+    public function getPendingInvoicesWithCustomerData(): Collection {
+        return Invoice::with('customer')->where('debt_due_date', '>=', Carbon::now()->format('Y-m-d'))->where('paid', false)->get();
+    }
 }

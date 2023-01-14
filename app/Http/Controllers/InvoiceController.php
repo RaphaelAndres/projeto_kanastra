@@ -52,8 +52,4 @@ class InvoiceController extends Controller
         
         return response(json_encode($invoice), 200);
     }
-
-    public static function chargePendingInvoices() {
-        
-    }
 }

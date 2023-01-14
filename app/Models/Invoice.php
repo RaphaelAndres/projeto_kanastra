@@ -39,6 +39,6 @@ class Invoice extends Model
     }
 
     public function chargeNotifications() {
-        return $this->hasMany(ChargeNotification::class)
+        return $this->hasMany(ChargeNotification::class);
     }
 }

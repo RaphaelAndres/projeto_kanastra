@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChargeNotificationController;
 use App\Http\Controllers\InvoiceController;
 use App\Models\Customer;
 use App\Models\Invoice;
@@ -27,6 +28,5 @@ Route::post('/upload-invoices', [InvoiceController::class, 'postInvoiceUpload'])
 Route::post('/pay-invoice', [InvoiceController::class, 'payInvoice'])->name('payInvoice');
 
 Route::get('/test', function() {
-    $cus = Invoice::find(1);
-    dd($cus->customer()->get());
+    ChargeNotificationController::chargePendingInvoices();
 });
