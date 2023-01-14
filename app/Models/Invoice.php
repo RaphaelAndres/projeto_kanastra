@@ -11,28 +11,34 @@ class Invoice extends Model
     use HasFactory, HasUuids;
 
     protected $table = 'invoices';
-    protected $primaryKey = 'hash';
+    protected $primaryKey = 'id';
     
     protected $fillable = [
+        'initial_debt_amount',
         'debt_amount',
         'debt_due_date',
-        'external_debt_id',
+        'debt_id',
         'paid',
         'customer_id',
     ];
-    
-    protected $dates = [
-        'debt_due_date',
-    ];
 
     protected $casts = [
+        'initial_debt_amount' => 'double',
         'debt_amount' => 'double',
-        'external_debt_id' => 'int',
+        'debt_id' => 'int',
         'paid' => 'bool',
+        'debt_due_date' => 'date:Y-m-d',
     ];
 
     protected $attributes = [
         'paid' => false,
     ];
 
+    public function customer() {
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function chargeNotifications() {
+        return $this->hasMany(ChargeNotification::class)
+    }
 }

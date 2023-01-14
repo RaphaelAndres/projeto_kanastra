@@ -14,11 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('invoices', function (Blueprint $table) {
-            $table->uuid('hash');
-            $table->timestamps();
+            $table->id();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+            $table->double('initial_debt_amount');
             $table->double('debt_amount');
             $table->date('debt_due_date');
-            $table->integer('external_debt_id');
+            $table->integer('debt_id');
             $table->boolean('paid');
             $table->foreignId('customer_id');
             $table->foreign('customer_id')->references('id')->on('customers');

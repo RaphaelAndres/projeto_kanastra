@@ -26,8 +26,8 @@
                     <div class="grid grid-cols-1">
                         <div class="p-6">
                             @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
+                                <div class="alert alert-danger p-2">
+                                    <ul class="mb-0">
                                         @foreach ($errors->all() as $error)
                                             <li>{{ $error }}</li>
                                         @endforeach

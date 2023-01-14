@@ -24,4 +24,7 @@ class Customer extends Model
         'email' => 'string',
     ];
 
+    public function invoices() {
+        return $this->hasMany(Invoice::class);
+    }
 }
