@@ -17,14 +17,13 @@ Após clonar o projeto para a sua máquina, para gerar as dependências do proje
 ```bash
   composer install
   npm i
-  php artisan key:generate
 ```
 
 Após isso, é necessário gerar os dados de Environment, copie o arquivo `.env.example` para `.env` e, se necessário, ajuste os campos de:
  - Endereço e porta do MySql
  - Nome do Banco de Dados
  - Usuário e senha do Banco de Dados
-Com a configuração do BD realizada, rode `php artisan migrate` para criar as tabelas e colunas no BD.
+Com a configuração do BD realizada, rode `php artisan migrate` para criar as tabelas e colunas no BD e após isso, o comando `php artisan key:generate` para gerar as credenciais de segurança do Laravel.
 
 Para executar o projeto localmente, execute em terminais separados:
 ```bash
