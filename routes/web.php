@@ -20,8 +20,5 @@ Route::get('/', function () {
 });
 
 Route::get('/upload-invoices', [InvoiceController::class, 'uploadInvoices'])->name('invoiceUpload');
-Route::get('/customer-list', [InvoiceController::class, 'customerList'])->name('listCustomers');
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

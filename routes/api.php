@@ -26,7 +26,3 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/upload-invoices', [InvoiceController::class, 'postInvoiceUpload'])->name('postUploadInvoices');
 Route::post('/pay-invoice', [InvoiceController::class, 'payInvoice'])->name('payInvoice');
-
-Route::get('/test', function() {
-    ChargeNotificationController::chargePendingInvoices();
-});
