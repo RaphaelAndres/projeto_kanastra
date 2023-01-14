@@ -36,6 +36,21 @@ class InvoiceController extends Controller
         return redirect('/');
     }
 
+    public function postExternalInvoiceUpload(Request $request) {
+        $request->validate([
+            'spreadsheet' => 'required|mimes:csv,txt',
+        ]);
+
+        $spreadsheet = $request->file('spreadsheet');
+        $invoice_upload_repository = new InvoiceUploadRepository();
+        $errors = $invoice_upload_repository->processInvoiceUpload($spreadsheet);
+        if ($errors) {
+            return response(json_encode($errors), 400);
+        }
+        
+        return response('Ok', 200);
+    }
+
     public function payInvoice(Request $request) {
         $request->validate([
             'debtId' => 'required|numeric',
@@ -47,7 +62,7 @@ class InvoiceController extends Controller
         try {
             $invoice = $this->repository->payInvoice($request);
         } catch (InvalidAmountForPaymentException $e) {
-            return response($e->getMessage(), 500);
+            return response($e->getMessage(), 400);
         }
         
         return response(json_encode($invoice), 200);

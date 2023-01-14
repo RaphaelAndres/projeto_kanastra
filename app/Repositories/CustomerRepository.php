@@ -26,7 +26,7 @@ class CustomerRepository
 
     private function validateCustomerInputs(array $formatted_spreadsheet): void {
         $failing_lines = [];
-
+        
         foreach (array_slice($formatted_spreadsheet, 1) as $line => $customer) {
             //0 => name, 1 => document, 2 => email
             if (!$customer[0] || !$customer[1] || !$customer[2]) {

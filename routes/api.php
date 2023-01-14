@@ -2,9 +2,6 @@
 
 use App\Http\Controllers\ChargeNotificationController;
 use App\Http\Controllers\InvoiceController;
-use App\Models\Customer;
-use App\Models\Invoice;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
@@ -24,5 +21,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/upload-invoices', [InvoiceController::class, 'postInvoiceUpload'])->name('postUploadInvoices');
+Route::post('/internal-upload-invoices', [InvoiceController::class, 'postInvoiceUpload'])->name('postUploadInvoices');
+Route::post('/upload-invoices', [InvoiceController::class, 'postExternalInvoiceUpload']);
+
 Route::post('/pay-invoice', [InvoiceController::class, 'payInvoice'])->name('payInvoice');
+
+Route::get('/charge-customers', [ChargeNotificationController::class, 'chargePendingInvoices']);

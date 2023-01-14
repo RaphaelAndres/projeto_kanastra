@@ -8,7 +8,6 @@ use App\Exceptions\InvalidCustomerDataException;
 use App\Exceptions\InvalidInvoiceDataException;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 
 class InvoiceUploadRepository
 {
@@ -17,15 +16,15 @@ class InvoiceUploadRepository
     public function processInvoiceUpload(UploadedFile $spreadsheet): array {
         $formatted_spreadsheet = $this->loadInvoicesFromSpreadsheet($spreadsheet);
         try {
-            DB::beginTransaction();
+            \DB::beginTransaction();
             $customers = $this->processCustomersFromInvoiceUpload($formatted_spreadsheet);
             $this->processInvoicesFromInvoiceUpload($formatted_spreadsheet, $customers);
-            DB::commit();
+            \DB::commit();
         } catch (InvalidCustomerDataException |
                 InvalidInvoiceDataException |
                 DuplicatedInvoiceException |
                 DocumentDuplicatedInvoiceException $e) {
-            DB::rollBack();
+            \DB::rollBack();
             return ['msg' => $e->getMessage()];
         }
         return [];
